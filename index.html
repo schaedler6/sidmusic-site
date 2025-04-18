@@ -93,24 +93,24 @@
   </head>
   <body>
     <!-- Player de música de fundo -->
-    <audio id="background-music" loop>
+    <audio id="background-music" autoplay loop>
       <source src="/audio/entre-dois-mundos-filha.mp3" type="audio/mp3">
       Seu navegador não suporta o elemento de áudio.
     </audio>
 
     <!-- Controle de música de fundo -->
     <div class="background-music-control" id="music-control" title="Reproduzir/Pausar música de fundo">
-      <svg id="play-icon" viewBox="0 0 24 24" style="display: block;">
+      <svg id="play-icon" viewBox="0 0 24 24" style="display: none;">
         <path d="M8 5v14l11-7z"/>
       </svg>
-      <svg id="pause-icon" viewBox="0 0 24 24" style="display: none;">
+      <svg id="pause-icon" viewBox="0 0 24 24" style="display: block;">
         <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
       </svg>
     </div>
 
     <!-- Controle de volume -->
     <div class="volume-control">
-      <input type="range" id="volume-slider" min="0" max="1" step="0.1" value="0.5">
+      <input type="range" id="volume-slider" min="0" max="1" step="0.1" value="0.2">
     </div>
 
     <div class="container">
@@ -183,11 +183,18 @@
         const pauseIcon = document.getElementById('pause-icon');
         const volumeSlider = document.getElementById('volume-slider');
 
-        // Definir volume inicial
-        music.volume = volumeSlider.value;
+        // Definir volume inicial para 0.2 (20%)
+        music.volume = 0.2;
+        volumeSlider.value = 0.2;
 
-        // Música não toca automaticamente devido às políticas dos navegadores
-        // O usuário precisa interagir com a página primeiro
+        // Tentar reproduzir automaticamente
+        // Obs: A maioria dos navegadores bloqueará o autoplay a menos que o usuário
+        // tenha interagido com a página ou tenha permitido autoplay em configurações
+        music.play().catch(function(error) {
+          // Se falhar o autoplay, mostrar ícone de play
+          playIcon.style.display = 'block';
+          pauseIcon.style.display = 'none';
+        });
 
         // Função para alternar entre reproduzir e pausar
         musicControl.addEventListener('click', function() {
