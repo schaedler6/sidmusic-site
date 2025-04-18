@@ -15,11 +15,104 @@
         cursor: pointer;
         text-decoration: none;
       }
+
+      /* Estilos para o controle de música de fundo */
+      .background-music-control {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        background: rgba(0, 0, 0, 0.7);
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 100;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease;
+      }
+
+      .background-music-control:hover {
+        transform: scale(1.1);
+        background: rgba(0, 0, 0, 0.8);
+      }
+
+      .background-music-control svg {
+        width: 20px;
+        height: 20px;
+        fill: #ffd700;
+      }
+
+      .volume-control {
+        position: fixed;
+        bottom: 20px;
+        left: 70px;
+        width: 100px;
+        z-index: 100;
+        display: none;
+      }
+
+      .background-music-control:hover + .volume-control,
+      .volume-control:hover {
+        display: block;
+      }
+
+      /* Estilos para notas musicais */
+      .music-note {
+        position: absolute;
+        pointer-events: none;
+        width: 24px;
+        height: 24px;
+        opacity: 0;
+        z-index: 9999;
+        animation: float-note 3s ease-in-out forwards;
+        filter: drop-shadow(0 0 2px rgba(0,0,0,0.3));
+      }
+
+      @keyframes float-note {
+        0% {
+          transform: translateY(0) rotate(0deg) scale(0.5);
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        90% {
+          opacity: 0.7;
+        }
+        100% {
+          transform: translateY(-120px) rotate(20deg) scale(0.8);
+          opacity: 0;
+        }
+      }
     </style>
     <script type="module" crossorigin src="/assets/index-CdEIyjOw.js"></script>
     <link rel="stylesheet" crossorigin href="/assets/index-BrQSoxsz.css">
   </head>
   <body>
+    <!-- Player de música de fundo -->
+    <audio id="background-music" loop>
+      <source src="/audio/novo-mundo.mp3" type="audio/mp3">
+      Seu navegador não suporta o elemento de áudio.
+    </audio>
+
+    <!-- Controle de música de fundo -->
+    <div class="background-music-control" id="music-control" title="Reproduzir/Pausar música de fundo">
+      <svg id="play-icon" viewBox="0 0 24 24" style="display: block;">
+        <path d="M8 5v14l11-7z"/>
+      </svg>
+      <svg id="pause-icon" viewBox="0 0 24 24" style="display: none;">
+        <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+      </svg>
+    </div>
+
+    <!-- Controle de volume -->
+    <div class="volume-control">
+      <input type="range" id="volume-slider" min="0" max="1" step="0.1" value="0.5">
+    </div>
+
     <div class="container">
       <div class="profile">
         <div class="profile-img-wrapper">
@@ -81,5 +174,93 @@
       </footer>
     </div>
 
+    <!-- Script para controlar a música de fundo -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const music = document.getElementById('background-music');
+        const musicControl = document.getElementById('music-control');
+        const playIcon = document.getElementById('play-icon');
+        const pauseIcon = document.getElementById('pause-icon');
+        const volumeSlider = document.getElementById('volume-slider');
+
+        // Definir volume inicial
+        music.volume = volumeSlider.value;
+
+        // Música não toca automaticamente devido às políticas dos navegadores
+        // O usuário precisa interagir com a página primeiro
+
+        // Função para alternar entre reproduzir e pausar
+        musicControl.addEventListener('click', function() {
+          if (music.paused) {
+            music.play();
+            playIcon.style.display = 'none';
+            pauseIcon.style.display = 'block';
+          } else {
+            music.pause();
+            playIcon.style.display = 'block';
+            pauseIcon.style.display = 'none';
+          }
+        });
+
+        // Controle de volume
+        volumeSlider.addEventListener('input', function() {
+          music.volume = this.value;
+        });
+
+        // Efeito de notas musicais no mouse
+        const container = document.querySelector('body');
+
+        // Definição das notas musicais em SVG
+        const musicNotes = [
+          `<svg class="music-note" viewBox="0 0 24 24" fill="#ffd700"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>`,
+          `<svg class="music-note" viewBox="0 0 24 24" fill="#ffd700"><path d="M20 2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 11.5v.5c0 1.1-.9 2-2 2H8c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h8c1.1 0 2 .9 2 2v10.5zM14 5h-2v4H9v2h3v4h2v-4h3V9h-3z"/></svg>`,
+          `<svg class="music-note" viewBox="0 0 24 24" fill="#ffd700"><path d="M18 3v2h-2V3H8v2H6V3H4v18h2v-2h2v2h8v-2h2v2h2V3h-2zM8 17H6v-2h2v2zm0-4H6v-2h2v2zm0-4H6V7h2v2zm10 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V7h2v2z"/></svg>`,
+          `<svg class="music-note" viewBox="0 0 24 24" fill="#ffd700"><path d="M16 6v8h3v-8h2V4h-5v2zm-5 8l5-8H9l5 8zM8 16h10v-2H8v2zM7 3H5v18h2V3zm-4 9H1v2h2v-2zm2-5H3v2h2V7zm0 10H3v2h2v-2z"/></svg>`
+        ];
+
+        // Intervalo mínimo entre criação de notas (em ms)
+        let lastNoteTime = 0;
+        const minInterval = 100; // 100ms entre cada nota
+
+        // Criar e adicionar nota musical
+        function createMusicNote(x, y) {
+          const now = Date.now();
+          if (now - lastNoteTime < minInterval) return;
+          lastNoteTime = now;
+
+          // Selecionar uma nota aleatória
+          const randomNote = musicNotes[Math.floor(Math.random() * musicNotes.length)];
+
+          // Criar elemento temporário para converter string SVG em DOM
+          const tempContainer = document.createElement('div');
+          tempContainer.innerHTML = randomNote;
+          const noteElement = tempContainer.firstChild;
+
+          // Posicionar a nota no local do mouse
+          noteElement.style.left = `${x}px`;
+          noteElement.style.top = `${y}px`;
+
+          // Adicionar variação aleatória à animação
+          const randomDuration = 2 + Math.random() * 2; // 2-4 segundos
+          const randomRotation = -30 + Math.random() * 60; // -30 a +30 graus
+          noteElement.style.animation = `float-note ${randomDuration}s ease-in-out forwards`;
+
+          // Adicionar a nota ao documento
+          document.body.appendChild(noteElement);
+
+          // Remover a nota após a animação
+          setTimeout(() => {
+            if (noteElement.parentNode) {
+              noteElement.parentNode.removeChild(noteElement);
+            }
+          }, randomDuration * 1000);
+        }
+
+        // Adicionar o detector de movimento do mouse
+        document.addEventListener('mousemove', function(e) {
+          createMusicNote(e.clientX, e.clientY);
+        });
+      });
+    </script>
   </body>
 </html>
