@@ -7,384 +7,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <style>
-      body {
-        margin: 0;
-        padding: 0;
-        font-family: 'Montserrat', 'Segoe UI', sans-serif;
-        background: linear-gradient(to bottom, #1c1c1c, #2d2d2d);
-        color: #fff;
-        text-align: center;
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        background-image: url('./assets/Sidcapa-Dio_qX7U.jpg');
-        background-size: cover;
-        background-position: center;
-        background-attachment: fixed;
-        position: relative;
-      }
-
-      body::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0, 0, 0, 0.75);
-        z-index: -1;
-      }
-
-      .container {
-        padding: 60px 20px;
-        max-width: 800px;
-        margin: 0 auto;
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-        justify-content: space-between;
-        position: relative;
-        z-index: 1;
-      }
-
-      .profile {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        position: relative;
-        margin-bottom: 60px;
-        animation: fadeIn 1.5s ease-in-out;
-      }
-
-      @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
-      }
-
-      .profile-img-wrapper {
-        width: 120px;
-        height: 120px;
-        margin-bottom: 20px;
-        border-radius: 50%;
-        overflow: hidden;
-        border: 3px solid rgba(255, 180, 0, 0.6);
-        box-shadow: 0 0 20px rgba(255, 180, 0, 0.3);
-      }
-
-      .profile-img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-
-      h1 {
-        font-size: 2.5em;
-        margin-bottom: 0.2em;
-        text-shadow: 0 0 10px rgba(255, 180, 0, 0.5);
-        letter-spacing: 1px;
-      }
-
-      h2 {
-        font-weight: 300;
-        color: #ffd700;
-        margin-top: 0;
-        max-width: 600px;
-        font-size: 1.2em;
-        line-height: 1.4;
-        text-shadow: 0 0 8px rgba(255, 180, 0, 0.3);
-      }
-
-      .social-icons {
-        display: flex;
-        justify-content: center;
-        margin-top: 20px;
-        gap: 15px;
-      }
-
-      .social-icon {
-        margin: 0 5px;
-        transition: all 0.3s ease;
-      }
-
-      .social-icon img {
-        width: 40px;
-        height: 40px;
-        transition: transform 0.2s ease, filter 0.2s ease;
-        filter: drop-shadow(0 0 5px rgba(255, 180, 0, 0.3));
-      }
-
-      .social-icon:hover img {
-        transform: scale(1.15);
-        filter: drop-shadow(0 0 8px rgba(255, 180, 0, 0.6));
-      }
-
-      .alt-tiktok {
-        margin-top: 15px;
-        font-size: 0.9em;
-        color: #ccc;
-      }
-
-      .alt-tiktok a {
-        color: #ffd700;
-        text-decoration: none;
-        transition: color 0.2s ease;
-      }
-
-      .alt-tiktok a:hover {
-        color: #fff;
-        text-decoration: underline;
-      }
-
-      .content-section {
-        margin: 30px 0;
-        width: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-        border-radius: 15px;
-        padding: 20px;
-        backdrop-filter: blur(5px);
-        border: 1px solid rgba(255, 180, 0, 0.1);
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-        animation: fadeIn 1.5s ease-in-out 0.3s both;
-      }
-
-      .section-title {
-        font-size: 1.4em;
-        text-align: left;
-        margin-bottom: un 0.9em;
-        font-weight: 500;
-        color: #ffd700;
-        text-shadow: 0 0 8px rgba(255, 180, 0, 0.3);
-        letter-spacing: 1px;
-      }
-
-      .track-list {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-      }
-
-      .track-item {
-        display: flex;
-        align-items: center;
-        padding: 12px;
-        background-color: rgba(255, 255, 255, 0.05);
-        border-radius: 8px;
-        transition: all 0.3s ease;
-        border: 1px solid rgba(255, 180, 0, 0.1);
-        cursor: pointer;
-      }
-
-      .track-item:hover {
-        background-color: rgba(255, 180, 0, 0.1);
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-      }
-
-      .track-image {
-        width: 50px;
-        height: 50px;
-        border-radius: 6px;
-        overflow: hidden;
-        margin-right: 15px;
-        border: 1px solid rgba(255, 180, 0, 0.3);
-      }
-
-      .track-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.3s ease;
-      }
-
-      .track-item:hover .track-image img {
-        transform: scale(1.08);
-      }
-
-      .track-info {
-        text-align: left;
-        flex: 1;
-      }
-
-      .track-title {
-        margin: 0;
-        font-size: 1.1em;
-        font-weight: 500;
-        color: #fff;
-      }
-
-      .track-description {
-        font-size: 0.85em;
-        color: #bbb;
-        margin: 5px 0 0 0;
-      }
-
-      .play-button {
-        width: 36px;
-        height: 36px;
-        border-radius: 50%;
-        background-color: rgba(255, 180, 0, 0.8);
-        position: relative;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        box-shadow: 0 0 10px rgba(255, 180, 0, 0.3);
-        margin-left: 10px;
-      }
-
-      .play-button:before {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 53%;
-        transform: translate(-50%, -50%);
-        width: 0;
-        height: 0;
-        border-style: solid;
-        border-width: 8px 0 8px 12px;
-        border-color: transparent transparent transparent #000;
-      }
-
-      .play-button:hover {
-        background-color: #ffd700;
-        transform: scale(1.1);
-        box-shadow: 0 0 15px rgba(255, 180, 0, 0.5);
-      }
-
-      .track-player {
-        margin-top: 10px;
-        display: none;
-        opacity: 0;
-        transition: opacity 0.5s ease;
-      }
-
-      .track-player.active {
-        display: block;
-        opacity: 1;
-      }
-
-      footer {
-        margin-top: 60px;
-        animation: fadeIn 1.5s ease-in-out 0.6s both;
-      }
-
-      .footer-link {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 15px;
-        padding: 12px 20px;
-        background-color: rgba(0, 0, 0, 0.5);
-        border-radius: 30px;
-        backdrop-filter: blur(5px);
-        border: 1px solid rgba(255, 180, 0, 0.1);
-      }
-
-      .footer-link span {
-        color: #ccc;
-      }
-
-      .btn {
-        display: inline-block;
-        padding: 10px 20px;
-        background-color: rgba(255, 180, 0, 0.8);
-        color: #000;
-        text-decoration: none;
-        font-weight: bold;
-        border-radius: 30px;
-        transition: all 0.3s ease;
-        box-shadow: 0 0 10px rgba(255, 180, 0, 0.3);
-      }
-
-      .btn:hover {
-        background-color: #ffd700;
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(255, 180, 0, 0.5);
-      }
-
-      .spotify-btn {
-        background-color: #1DB954;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 30px;
-        font-weight: bold;
-        display: inline-flex;
-        align-items: center;
-        margin-top: 20px;
-        text-decoration: none;
-        transition: all 0.3s ease;
-      }
-
-      .spotify-btn:hover {
-        background-color: #1ed760;
-        transform: translateY(-2px);
-      }
-
-      .spotify-btn img {
-        width: 24px;
-        height: 24px;
-        margin-right: 8px;
-      }
-
-      .footer-text {
-        font-size: 0.9em;
-        color: #888;
-        margin-top: 10px;
-      }
-
-      /* Responsividade */
-      @media screen and (max-width: 600px) {
-        .container {
-            padding: 40px 15px;
-        }
-
-        h1 {
-            font-size: 2em;
-        }
-
-        h2 {
-            font-size: 1em;
-        }
-
-        .profile-img-wrapper {
-            width: 100px;
-            height: 100px;
-        }
-
-        .footer-link {
-            flex-direction: column;
-            gap: 15px;
-            padding: 15px;
-        }
-
-        .track-image {
-            width: 40px;
-            height: 40px;
-            margin-right: 10px;
-        }
-
-        .track-title {
-            font-size: 0.95em;
-        }
-
-        .track-description {
-            font-size: 0.8em;
-        }
-
-        .play-button {
-            width: 32px;
-            height: 32px;
-        }
-      }
-    </style>
+    <script type="module" crossorigin src="/sidmusic-site/assets/index-BvtzMbJZ.js"></script>
+    <link rel="stylesheet" crossorigin href="/sidmusic-site/assets/index-BVkZ3wlt.css">
   </head>
   <body>
     <div class="container">
       <div class="profile">
         <div class="profile-img-wrapper">
-          <img class="profile-img" src="./assets/Sid_Schaedler-DtR9QFSu.jpg" alt="Sid Schaedler" />
+          <img class="profile-img" src="/sidmusic-site/assets/Sid_Schaedler-DtR9QFSu-DtR9QFSu.jpg" alt="Sid Schaedler" />
         </div>
         <h1>Sid Schaedler</h1>
         <h2>Compositor</h2>
@@ -398,23 +28,16 @@
           <a href="mailto:sidicompositor@gmail.com" class="social-icon" title="Email">
             <img src="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20width='40'%20height='40'%20viewBox='0%200%2040%2040'%20fill='none'%3e%3ccircle%20cx='20'%20cy='20'%20r='19'%20fill='%23EA4335'%20stroke='%23fff'%20stroke-width='2'/%3e%3cpath%20d='M30%2016.4925V26C30%2027.1046%2029.1046%2028%2028%2028H12C10.8954%2028%2010%2027.1046%2010%2026V16.4925L19.4589%2022.1555C19.7906%2022.3526%2020.2094%2022.3526%2020.5411%2022.1555L30%2016.4925Z'%20fill='white'/%3e%3cpath%20d='M30%2015.0511V14.5C30%2013.3954%2029.1046%2012.5%2028%2012.5H12C10.8954%2012.5%2010%2013.3954%2010%2014.5V15.0511L19.4589%2020.7141C19.7906%2020.9113%2020.2094%2020.9113%2020.5411%2020.7141L30%2015.0511Z'%20fill='white'/%3e%3c/svg%3e" alt="Email" />
           </a>
-          <a href="https://open.spotify.com/intl-pt/artist/4JpSt47bo8afDdSu7DqSH4" target="_blank" class="social-icon" title="Spotify">
-            <img src="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20width='40'%20height='40'%20viewBox='0%200%2040%2040'%20fill='none'%3e%3ccircle%20cx='20'%20cy='20'%20r='19'%20fill='%231DB954'%20stroke='%23fff'%20stroke-width='2'/%3e%3cpath%20d='M30%2020c0-5.523-4.477-10-10-10S10%2014.477%2010%2020s4.477%2010%2010%2010%2010-4.477%2010-10zm-2.357-2.35c-.405.602-1.131.76-1.732.354-3.356-2.049-7.442-2.526-12.306-1.383-.735.17-1.465-.281-1.635-1.016-.172-.736.28-1.466%201.016-1.637%205.44-1.248%2010.049-.712%2013.903%201.648.602.405.76%201.131.354%201.732zm-.126%203.286c-.338.48-.982.612-1.467.275-2.783-1.71-7.025-2.205-10.321-1.205-.605.183-1.246-.16-1.429-.765-.182-.606.159-1.245.765-1.428%203.983-1.208%208.89-.625%2012.177%201.397.486.337.617.985.275%201.466zm-1.672%203.157c-.268.394-.817.483-1.207.213-2.395-1.463-5.419-1.792-8.984-.966-.517.118-1.032-.204-1.152-.72-.119-.518.205-1.033.722-1.152%204.102-.936%207.563-.534%2010.408%201.221.391.237.483.814.213%201.207z'%20fill='white'/%3e%3c/svg%3e" alt="Spotify" />
-          </a>
         </div>
         <p class="alt-tiktok">Perfil alternativo: <a href="https://www.tiktok.com/@sidschaedler" target="_blank">@sidschaedler</a></p>
-        <a href="https://open.spotify.com/intl-pt/artist/4JpSt47bo8afDdSu7DqSH4" target="_blank" class="spotify-btn">
-          <img src="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%3e%3cpath%20d='M12%202C6.47715%202%202%206.47715%202%2012C2%2017.5228%206.47715%2022%2012%2022C17.5228%2022%2022%2017.5228%2022%2012C22%206.47715%2017.5228%202%2012%202ZM16.5917%2016.4083C16.2708%2016.7292%2015.7597%2016.7292%2015.4388%2016.4083C12.4589%2013.4284%208.41669%2013.216%205.01044%2014.0375C4.42347%2014.1648%203.97951%2013.7208%204.10681%2013.1339C4.23411%2012.5469%204.76856%2012.2396%205.3138%2012.1123C9.31039%2011.1635%2013.9062%2011.4174%2017.3814%2014.8926C17.7023%2015.2135%2017.7023%2015.7246%2017.4232%2016.0455L16.5917%2016.4083ZM17.8438%2013.3542C17.4394%2013.7586%2016.806%2013.7586%2016.4015%2013.3542C12.9263%209.87895%207.64589%209.5417%204.44794%2010.6696C3.73698%2010.8805%203.0678%2010.436%202.8568%209.72506C2.64581%209.01411%203.09037%208.34493%203.80132%208.13394C7.62371%206.79169%2013.5017%207.17573%2017.5764%2011.25C17.9809%2011.6545%2017.9809%2012.2879%2017.5764%2012.6924L17.8438%2013.3542ZM17.9809%2010.1953C13.8802%206.09462%208.02085%205.65006%204.57292%206.96013C3.73698%207.21289%202.91322%206.6777%202.66046%205.84176C2.40769%205.00582%202.94288%204.18207%203.77882%203.9293C7.79758%202.41671%2014.4428%202.92972%2019.1745%207.66146C19.708%208.19505%2019.708%209.0649%2019.1745%209.59849C18.6409%2010.1321%2017.771%2010.1321%2017.2374%209.59849L17.9809%2010.1953Z'%20fill='white'/%3e%3c/svg%3e" alt="Spotify">
-          Ouça no Spotify
-        </a>
       </div>
 
       <div class="content-section">
         <div class="section-title">Músicas</div>
         <div class="track-list">
-          <div class="track-item" data-track="novo-mundo">
+          <div class="track-item">
             <div class="track-image">
-              <img src="./assets/Sidcapa-Dio_qX7U.jpg" alt="Novo Mundo" />
+              <img src="/sidmusic-site/assets/Sidcapa-Dio_qX7U-Dio_qX7U.jpg" alt="Novo Mundo" />
             </div>
             <div class="track-info">
               <h3 class="track-title">Novo Mundo</h3>
@@ -424,13 +47,10 @@
               <div class="play-button"></div>
             </div>
           </div>
-          <div class="track-player" id="track-novo-mundo">
-            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/7pZxUYO6TXo5aM4EAGxCG1?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-          </div>
 
-          <div class="track-item" data-track="sardo">
+          <div class="track-item">
             <div class="track-image">
-              <img src="./assets/Sidcapa-Dio_qX7U.jpg" alt="Sardo" />
+              <img src="/sidmusic-site/assets/Sidcapa-Dio_qX7U-Dio_qX7U.jpg" alt="Sardo" />
             </div>
             <div class="track-info">
               <h3 class="track-title">Sardo</h3>
@@ -440,13 +60,10 @@
               <div class="play-button"></div>
             </div>
           </div>
-          <div class="track-player" id="track-sardo">
-            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/7tLH22nRrQylsRj5sZx0GG?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-          </div>
 
-          <div class="track-item" data-track="sangs">
+          <div class="track-item">
             <div class="track-image">
-              <img src="./assets/ChatGPT_Image_27_de_mar._de_2025__23_16_27-BgtQzc4z.png" alt="Sangs" />
+              <img src="/sidmusic-site/assets/ChatGPT_Image_27_de_mar._de_2025__23_16_27-BgtQzc4z-BgtQzc4z.png" alt="Sangs" />
             </div>
             <div class="track-info">
               <h3 class="track-title">Sangs</h3>
@@ -455,9 +72,6 @@
             <div class="track-play">
               <div class="play-button"></div>
             </div>
-          </div>
-          <div class="track-player" id="track-sangs">
-            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/14i17M0M2pIUGBhCnwEXyD?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
           </div>
         </div>
       </div>
@@ -471,25 +85,5 @@
       </footer>
     </div>
 
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        const trackItems = document.querySelectorAll('.track-item');
-
-        trackItems.forEach(item => {
-          item.addEventListener('click', function() {
-            const trackId = this.getAttribute('data-track');
-            const player = document.getElementById('track-' + trackId);
-
-            // Fechar todos os players primeiro
-            document.querySelectorAll('.track-player').forEach(p => {
-              p.classList.remove('active');
-            });
-
-            // Abrir o player selecionado
-            player.classList.add('active');
-          });
-        });
-      });
-    </script>
   </body>
 </html>
