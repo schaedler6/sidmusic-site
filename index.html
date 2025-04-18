@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sid Schaedler | Compositor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script type="module" crossorigin src="/assets/index-wBpZbBBQ.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-BmGl9fxu.css">
+    <style>
+      .track-play {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        text-decoration: none;
+      }
+
+      /* Estilos para o controle de música de fundo */
+      .background-music-control {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        background: rgba(0, 0, 0, 0.7);
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 100;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease;
+      }
+
+      .background-music-control:hover {
+        transform: scale(1.1);
+        background: rgba(0, 0, 0, 0.8);
+      }
+
+      .background-music-control svg {
+        width: 20px;
+        height: 20px;
+        fill: #ffd700;
+      }
+
+      .volume-control {
+        position: fixed;
+        bottom: 20px;
+        left: 70px;
+        width: 100px;
+        z-index: 100;
+        display: none;
+      }
+
+      .background-music-control:hover + .volume-control,
+      .volume-control:hover {
+        display: block;
+      }
+
+      /* Estilos para notas musicais */
+      .music-note {
+        position: absolute;
+        pointer-events: none;
+        width: 24px;
+        height: 24px;
+        opacity: 0;
+        z-index: 9999;
+        animation: float-note 3s ease-in-out forwards;
+        filter: drop-shadow(0 0 2px rgba(0,0,0,0.3));
+      }
+
+      @keyframes float-note {
+        0% {
+          transform: translateY(0) rotate(0deg) scale(0.5);
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        90% {
+          opacity: 0.7;
+        }
+        100% {
+          transform: translateY(-120px) rotate(20deg) scale(0.8);
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Player de música de fundo -->
+    <audio id="background-music" autoplay loop>
+      <source src="/audio/entre-dois-mundos-filha.mp3" type="audio/mp3">
+      Seu navegador não suporta o elemento de áudio.
+    </audio>
+
+    <!-- Controle de música de fundo -->
+    <div class="background-music-control" id="music-control" title="Reproduzir/Pausar música de fundo">
+      <svg id="play-icon" viewBox="0 0 24 24" style="display: none;">
+        <path d="M8 5v14l11-7z"/>
+      </svg>
+      <svg id="pause-icon" viewBox="0 0 24 24" style="display: block;">
+        <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+      </svg>
+    </div>
+
+    <!-- Controle de volume -->
+    <div class="volume-control">
+      <input type="range" id="volume-slider" min="0" max="1" step="0.1" value="0.2">
+    </div>
+
+    <div class="container">
+      <div class="profile">
+        <div class="profile-img-wrapper">
+          <img class="profile-img" src="/assets/Sid_Schaedler-DtR9QFSu.jpg" alt="Sid Schaedler" />
+        </div>
+        <h1>Sid Schaedler</h1>
+        <h2>Compositor</h2>
+        <div class="social-icons">
+          <a href="https://www.tiktok.com/@sid.schaedler.compositor" target="_blank" class="social-icon" title="TikTok">
+            <img src="data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3e%3ccircle cx='20' cy='20' r='20' fill='%23000'/%3e%3cpath d='M20.8187 9.90602C22.0467 9.88602 23.2636 9.89602 24.4796 9.89602C24.5305 11.279 25.108 12.642 26.1441 13.585C27.1818 14.563 28.6272 15.037 30.0428 15.016V18.906C28.7826 18.872 27.5253 18.559 26.4204 17.998C25.9615 17.766 25.5346 17.485 25.127 17.17C25.1178 19.924 25.1362 22.681 25.1086 25.435C25.0452 26.699 24.6259 27.928 23.9082 28.979C22.634 30.826 20.2996 31.916 17.9252 31.827C16.4117 31.815 14.9184 31.298 13.695 30.42C11.7065 29.016 10.5903 26.579 10.8219 24.242C11.0097 22.232 12.042 20.371 13.599 19.177C15.3254 17.834 17.7178 17.284 19.878 17.92C19.8893 19.295 19.8355 20.668 19.8355 22.043C18.9479 21.736 17.8965 21.837 17.1169 22.358C16.5857 22.691 16.1643 23.205 15.9337 23.798C15.6588 24.404 15.6144 25.099 15.7789 25.739C16.097 27.012 17.3362 28.015 18.6555 27.973C19.5779 28.002 20.4775 27.533 21.0033 26.788C21.2698 26.423 21.4469 25.985 21.4933 25.533C21.5926 24.536 21.5374 23.535 21.5429 22.537C21.5505 18.327 21.5337 14.117 21.5613 9.907L20.8187 9.90602Z' fill='white'/%3e%3c/svg%3e" alt="TikTok" />
+          </a>
+          <a href="https://www.youtube.com/@Sid.Schaedler.compositor" target="_blank" class="social-icon" title="YouTube">
+            <img src="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20width='40'%20height='40'%20viewBox='0%200%2040%2040'%20fill='none'%3e%3ccircle%20cx='20'%20cy='20'%20r='19'%20fill='%23FF0000'%20stroke='%23fff'%20stroke-width='2'/%3e%3cpath%20d='M29.5822%2015.0057C29.3764%2014.2889%2028.9038%2013.7148%2028.269%2013.4795C27.0558%2013%2019.9999%2013%2019.9999%2013C19.9999%2013%2012.9441%2013%2011.7308%2013.4795C11.0959%2013.7148%2010.6233%2014.2889%2010.4175%2015.0057C10%2016.3682%2010%2020%2010%2020C10%2020%2010%2023.6317%2010.4175%2024.9942C10.6233%2025.711%2011.0959%2026.2852%2011.7308%2026.5204C12.9441%2027%2019.9999%2027%2019.9999%2027C19.9999%2027%2027.0557%2027%2028.269%2026.5204C28.9038%2026.2852%2029.3764%2025.711%2029.5822%2024.9942C29.9997%2023.6317%2029.9997%2020%2029.9997%2020C29.9997%2020%2029.9997%2016.3682%2029.5822%2015.0057Z'%20fill='%23FF0000'/%3e%3cpath%20d='M18%2023L24%2020L18%2017V23Z'%20fill='white'/%3e%3c/svg%3e" alt="YouTube" />
+          </a>
+          <a href="mailto:sidicompositor@gmail.com" class="social-icon" title="Email">
+            <img src="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20width='40'%20height='40'%20viewBox='0%200%2040%2040'%20fill='none'%3e%3ccircle%20cx='20'%20cy='20'%20r='19'%20fill='%23EA4335'%20stroke='%23fff'%20stroke-width='2'/%3e%3cpath%20d='M30%2016.4925V26C30%2027.1046%2029.1046%2028%2028%2028H12C10.8954%2028%2010%2027.1046%2010%2026V16.4925L19.4589%2022.1555C19.7906%2022.3526%2020.2094%2022.3526%2020.5411%2022.1555L30%2016.4925Z'%20fill='white'/%3e%3cpath%20d='M30%2015.0511V14.5C30%2013.3954%2029.1046%2012.5%2028%2012.5H12C10.8954%2012.5%2010%2013.3954%2010%2014.5V15.0511L19.4589%2020.7141C19.7906%2020.9113%2020.2094%2020.9113%2020.5411%2020.7141L30%2015.0511Z'%20fill='white'/%3e%3c/svg%3e" alt="Email" />
+          </a>
+        </div>
+        <p class="alt-tiktok">Perfil alternativo: <a href="https://www.tiktok.com/@sidschaedler" target="_blank">@sidschaedler</a></p>
+      </div>
+
+      <div class="content-section">
+        <div class="section-title">Músicas</div>
+        <div class="track-list">
+          <div class="track-item">
+            <div class="track-image">
+              <img src="/assets/Sidcapa-Dio_qX7U.jpg" alt="Novo Mundo" />
+            </div>
+            <div class="track-info">
+              <h3 class="track-title">Novo Mundo</h3>
+              <p class="track-description">Single • 2024</p>
+            </div>
+            <a href="https://youtu.be/mxD-aY13H14?si=qgQhXZ7sFVzmGkq0" target="_blank" class="track-play">
+              <div class="play-button"></div>
+            </a>
+          </div>
+
+          <div class="track-item">
+            <div class="track-image">
+              <img src="/assets/Entre_Dois_Mundos_filha.jpg" alt="Entre Dois Mundos Filha" />
+            </div>
+            <div class="track-info">
+              <h3 class="track-title">Entre Dois Mundos Filha</h3>
+              <p class="track-description">Single • 2024</p>
+            </div>
+            <a href="https://open.spotify.com/intl-pt/artist/4JpSt47bo8afDdSu7DqSH4?si=3mR-qTZzSiiRLSwyekultw" target="_blank" class="track-play">
+              <div class="play-button"></div>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="footer-link">
+          <span>sidicompositor@gmail.com</span>
+          <a href="mailto:sidicompositor@gmail.com" class="btn">Contato</a>
+        </div>
+        <p class="footer-text">&copy; 2024 Sid Schaedler</p>
+      </footer>
+    </div>
+
+    <!-- Script para controlar a música de fundo -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const music = document.getElementById('background-music');
+        const musicControl = document.getElementById('music-control');
+        const playIcon = document.getElementById('play-icon');
+        const pauseIcon = document.getElementById('pause-icon');
+        const volumeSlider = document.getElementById('volume-slider');
+
+        // Definir volume inicial para 0.2 (20%)
+        music.volume = 0.2;
+        volumeSlider.value = 0.2;
+
+        // Tentar reproduzir automaticamente
+        // Obs: A maioria dos navegadores bloqueará o autoplay a menos que o usuário
+        // tenha interagido com a página ou tenha permitido autoplay em configurações
+        music.play().catch(function(error) {
+          // Se falhar o autoplay, mostrar ícone de play
+          playIcon.style.display = 'block';
+          pauseIcon.style.display = 'none';
+        });
+
+        // Função para alternar entre reproduzir e pausar
+        musicControl.addEventListener('click', function() {
+          if (music.paused) {
+            music.play();
+            playIcon.style.display = 'none';
+            pauseIcon.style.display = 'block';
+          } else {
+            music.pause();
+            playIcon.style.display = 'block';
+            pauseIcon.style.display = 'none';
+          }
+        });
+
+        // Controle de volume
+        volumeSlider.addEventListener('input', function() {
+          music.volume = this.value;
+        });
+
+        // Efeito de notas musicais no mouse
+        const container = document.querySelector('body');
+
+        // Definição das notas musicais em SVG
+        const musicNotes = [
+          `<svg class="music-note" viewBox="0 0 24 24" fill="#ffd700"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>`,
+          `<svg class="music-note" viewBox="0 0 24 24" fill="#ffd700"><path d="M20 2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 11.5v.5c0 1.1-.9 2-2 2H8c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h8c1.1 0 2 .9 2 2v10.5zM14 5h-2v4H9v2h3v4h2v-4h3V9h-3z"/></svg>`,
+          `<svg class="music-note" viewBox="0 0 24 24" fill="#ffd700"><path d="M18 3v2h-2V3H8v2H6V3H4v18h2v-2h2v2h8v-2h2v2h2V3h-2zM8 17H6v-2h2v2zm0-4H6v-2h2v2zm0-4H6V7h2v2zm10 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V7h2v2z"/></svg>`,
+          `<svg class="music-note" viewBox="0 0 24 24" fill="#ffd700"><path d="M16 6v8h3v-8h2V4h-5v2zm-5 8l5-8H9l5 8zM8 16h10v-2H8v2zM7 3H5v18h2V3zm-4 9H1v2h2v-2zm2-5H3v2h2V7zm0 10H3v2h2v-2z"/></svg>`
+        ];
+
+        // Intervalo mínimo entre criação de notas (em ms)
+        let lastNoteTime = 0;
+        const minInterval = 100; // 100ms entre cada nota
+
+        // Criar e adicionar nota musical
+        function createMusicNote(x, y) {
+          const now = Date.now();
+          if (now - lastNoteTime < minInterval) return;
+          lastNoteTime = now;
+
+          // Selecionar uma nota aleatória
+          const randomNote = musicNotes[Math.floor(Math.random() * musicNotes.length)];
+
+          // Criar elemento temporário para converter string SVG em DOM
+          const tempContainer = document.createElement('div');
+          tempContainer.innerHTML = randomNote;
+          const noteElement = tempContainer.firstChild;
+
+          // Posicionar a nota no local do mouse
+          noteElement.style.left = `${x}px`;
+          noteElement.style.top = `${y}px`;
+
+          // Adicionar variação aleatória à animação
+          const randomDuration = 2 + Math.random() * 2; // 2-4 segundos
+          const randomRotation = -30 + Math.random() * 60; // -30 a +30 graus
+          noteElement.style.animation = `float-note ${randomDuration}s ease-in-out forwards`;
+
+          // Adicionar a nota ao documento
+          document.body.appendChild(noteElement);
+
+          // Remover a nota após a animação
+          setTimeout(() => {
+            if (noteElement.parentNode) {
+              noteElement.parentNode.removeChild(noteElement);
+            }
+          }, randomDuration * 1000);
+        }
+
+        // Adicionar o detector de movimento do mouse
+        document.addEventListener('mousemove', function(e) {
+          createMusicNote(e.clientX, e.clientY);
+        });
+      });
+    </script>
+  </body>
+</html>

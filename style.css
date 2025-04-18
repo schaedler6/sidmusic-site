@@ -1,0 +1,42 @@
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to bottom, #111, #333);
+  color: #fff;
+  text-align: center;
+  padding: 40px;
+  margin: 0;
+}
+header h1 {
+  font-size: 2.5em;
+  margin-bottom: 0.2em;
+}
+header .slogan {
+  font-style: italic;
+  color: #ccc;
+}
+.buttons {
+  margin: 40px 0;
+}
+.buttons a {
+  display: inline-block;
+  margin: 10px;
+  padding: 15px 25px;
+  background: #444;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background 0.3s;
+}
+.buttons a:hover {
+  background: #666;
+}
+footer {
+  margin-top: 50px;
+}
+footer ul {
+  list-style: none;
+  padding: 0;
+}
+footer ul li {
+  margin: 5px 0;
+}
